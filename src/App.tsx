@@ -18,7 +18,6 @@ import {
   Check,
   Eye,
   EyeOff,
-  ShieldAlert,
   Lock,
   Unlock,
   Key,
@@ -179,6 +178,15 @@ function SendTab() {
           </CardContent>
         </Card>
       )}
+
+      <Alert className="mt-2">
+        <Info className="size-4" />
+        <AlertTitle>这是怎么工作的？</AlertTitle>
+        <AlertDescription>
+          接收方先生成一对密钥（公钥 +
+          私钥），然后把公钥分享给你。你用公钥加密内容后，只有持有对应私钥的接收方才能解密查看，其他任何人（包括你自己）都无法从密文还原原文。
+        </AlertDescription>
+      </Alert>
     </div>
   )
 }
@@ -419,31 +427,13 @@ function ReceiveTab() {
 export default function App() {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6">
-      <div className="mb-6 space-y-3">
+      <div className="mb-6 space-y-1">
         <h1 className="text-2xl font-bold tracking-tight">
           🔐 Friendly Curves
         </h1>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          普通人也能轻松使用的加密小工具。在社交媒体上安全地传递私密信息，无需注册，无需安装，一切都在浏览器里完成。
+        <p className="text-sm text-muted-foreground">
+          在浏览器中加密不方便明文传输的简短内容，无需注册，无需安装。
         </p>
-        <Alert>
-          <ShieldAlert className="size-4" />
-          <AlertTitle>安全声明</AlertTitle>
-          <AlertDescription className="space-y-1">
-            <p>
-              本工具使用椭圆曲线加密（Curve25519 + AES-GCM），比直接发送明文
-              <strong>安全得多</strong>
-              ，但<strong>并非万无一失</strong>。
-            </p>
-            <p>
-              它适合在普通社交媒体上临时加密一些不便明文传输的信息（如临时密码、私人地址等），前提是你信任平台不会主动发起中间人攻击。
-            </p>
-            <p>
-              如果你是高价值目标或有最高安全需求，请使用 Signal
-              等专业端到端加密工具。
-            </p>
-          </AlertDescription>
-        </Alert>
       </div>
 
       <Tabs defaultValue="send">
@@ -464,11 +454,13 @@ export default function App() {
       </Tabs>
 
       <footer className="mt-8 space-y-1 text-center text-xs text-muted-foreground">
-        <p>所有加密操作均在浏览器本地完成，没有任何数据发送到服务器</p>
+        <p>所有操作均在浏览器本地完成，不会上传任何数据</p>
         <p>
           基于 Curve25519 + AES-256-GCM ·{" "}
           <a
-            href="https://github.com"
+            href="https://github.com/yyhhenry/friendly-curves"
+            target="_blank"
+            rel="noopener noreferrer"
             className="underline underline-offset-2 hover:text-foreground"
           >
             开源项目
