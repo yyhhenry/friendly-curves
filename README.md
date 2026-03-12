@@ -1,8 +1,8 @@
-# React + TypeScript + Vite + shadcn/ui
+# Friendly Curves
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+普通人能看懂的基于ed25519的非对称加密工具，适合用于不是太严格的场景，例如临时在普通社交媒体上发布有一定保密需要的个人信息，如一些账号密码等。这里假定用户不是高价值目标，社交媒体不会发起中间人攻击，只是避免直接传递明文信息，增加一些安全性。
 
-## Adding components
+## Development
 
 To add components to your app, run the following command:
 
@@ -10,17 +10,11 @@ To add components to your app, run the following command:
 pnpm dlx shadcn@latest add button
 ```
 
-This will place the ui components in the `src/components` directory.
-
-## Using components
-
 To use the components in your app, import them as follows:
 
 ```tsx
 import { Button } from "@/components/ui/button"
 ```
-
-## Development
 
 Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Radix UI:
 
