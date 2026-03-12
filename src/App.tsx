@@ -320,6 +320,15 @@ function ReceiveTab() {
           {error && !ciphertext && (
             <p className="text-xs text-destructive">{error}</p>
           )}
+          <Alert>
+            <Info className="size-4" />
+            <AlertTitle>关于私钥</AlertTitle>
+            <AlertDescription>
+              密钥对会自动保存在本地浏览器中，刷新页面不会丢失。
+              <br />
+              注意：重新生成或清除密钥后，之前加密的消息将无法解密，请谨慎操作！
+            </AlertDescription>
+          </Alert>
         </CardContent>
       </Card>
 
@@ -389,13 +398,6 @@ function ReceiveTab() {
                 />
               )}
             </div>
-            <Alert>
-              <Info className="size-4" />
-              <AlertTitle>关于私钥</AlertTitle>
-              <AlertDescription>
-                密钥对已自动保存在本地浏览器中，刷新页面不会丢失。如需在其他设备使用，可复制私钥手动恢复。点击「清除本地密钥」可删除保存的数据。
-              </AlertDescription>
-            </Alert>
           </CardContent>
         </Card>
       )}
