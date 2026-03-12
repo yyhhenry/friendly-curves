@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   Card,
@@ -24,6 +24,8 @@ import {
   Send,
   Inbox,
   Info,
+  Github,
+  Trash2,
 } from "lucide-react"
 import {
   generateKeyPair,
@@ -178,18 +180,11 @@ function SendTab() {
           </CardContent>
         </Card>
       )}
-
-      <Alert className="mt-2">
-        <Info className="size-4" />
-        <AlertTitle>这是怎么工作的？</AlertTitle>
-        <AlertDescription>
-          接收方先生成一对密钥（公钥 +
-          私钥），然后把公钥分享给你。你用公钥加密内容后，只有持有对应私钥的接收方才能解密查看，其他任何人（包括你自己）都无法从密文还原原文。
-        </AlertDescription>
-      </Alert>
     </div>
   )
 }
+
+const LOCALSTORAGE_KEY = "friendly-curves-private-key"
 
 function ReceiveTab() {
   const [keyPair, setKeyPair] = useState<{
@@ -204,14 +199,50 @@ function ReceiveTab() {
   const [decrypting, setDecrypting] = useState(false)
   const [restoreMode, setRestoreMode] = useState(false)
 
+  const applyKeyPair = useCallback(
+    (kp: { privateKey: Uint8Array; publicKey: Uint8Array }) => {
+      setKeyPair(kp)
+      localStorage.setItem(LOCALSTORAGE_KEY, privateKeyToBase64(kp.privateKey))
+      setShowPrivateKey(false)
+      setCiphertext("")
+      setPlaintext("")
+      setError("")
+      setRestoreMode(false)
+    },
+    []
+  )
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LOCALSTORAGE_KEY)
+      if (stored) {
+        const privKey = base64ToPrivateKey(stored)
+        if (privKey.length === 32) {
+          const pubKey = getPublicKeyFromPrivate(privKey)
+          setKeyPair({ privateKey: privKey, publicKey: pubKey })
+        }
+      }
+    } catch {
+      /* ignore invalid data */
+    }
+  }, [])
+
   const handleGenerate = () => {
     const kp = generateKeyPair()
-    setKeyPair(kp)
+    applyKeyPair(kp)
+  }
+
+  const handleClear = () => {
+    if (
+      !confirm("确定要清除本地保存的密钥对吗？清除后将无法解密之前加密的消息。")
+    )
+      return
+    localStorage.removeItem(LOCALSTORAGE_KEY)
+    setKeyPair(null)
     setShowPrivateKey(false)
     setCiphertext("")
     setPlaintext("")
     setError("")
-    setRestoreMode(false)
   }
 
   const handleRestore = () => {
@@ -219,9 +250,7 @@ function ReceiveTab() {
       const privKey = base64ToPrivateKey(privateKeyInput.trim())
       if (privKey.length !== 32) throw new Error("invalid length")
       const pubKey = getPublicKeyFromPrivate(privKey)
-      setKeyPair({ privateKey: privKey, publicKey: pubKey })
-      setRestoreMode(false)
-      setError("")
+      applyKeyPair({ privateKey: privKey, publicKey: pubKey })
     } catch {
       setError("私钥格式不正确，请检查是否完整复制")
     }
@@ -255,10 +284,15 @@ function ReceiveTab() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button onClick={handleGenerate}>
               <Key className="size-4" /> {keyPair ? "重新生成" : "生成密钥对"}
             </Button>
+            {keyPair && (
+              <Button variant="outline" onClick={handleClear}>
+                <Trash2 className="size-4" /> 清除本地密钥
+              </Button>
+            )}
             {!keyPair && (
               <Button
                 variant="outline"
@@ -359,8 +393,7 @@ function ReceiveTab() {
               <Info className="size-4" />
               <AlertTitle>关于私钥</AlertTitle>
               <AlertDescription>
-                关闭或刷新页面后私钥将丢失，之前加密的消息将无法解密。如需长期使用，可以复制私钥保存在安全的地方，下次通过「从已有私钥恢复」找回。
-                复制私钥通常只在学习算法原理时才有意义，普通使用无需保存。
+                密钥对已自动保存在本地浏览器中，刷新页面不会丢失。如需在其他设备使用，可复制私钥手动恢复。点击「清除本地密钥」可删除保存的数据。
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -427,13 +460,21 @@ function ReceiveTab() {
 export default function App() {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6">
-      <div className="mb-6 space-y-1">
+      <div className="mb-6 space-y-3">
         <h1 className="text-2xl font-bold tracking-tight">
           🔐 Friendly Curves
         </h1>
         <p className="text-sm text-muted-foreground">
           在浏览器中加密不方便明文传输的简短内容，无需注册，无需安装。
         </p>
+        <Alert>
+          <Info className="size-4" />
+          <AlertTitle>工作原理</AlertTitle>
+          <AlertDescription>
+            接收方生成一对密钥（公钥 +
+            私钥），将公钥分享给发送方。发送方用公钥加密内容后，只有持有私钥的接收方才能解密，任何第三方都无法从密文还原原文。本工具建立在「社交媒体可能泄露内容但不会篡改内容」的前提下，比直接明文传输安全得多。
+          </AlertDescription>
+        </Alert>
       </div>
 
       <Tabs defaultValue="send">
@@ -461,9 +502,9 @@ export default function App() {
             href="https://github.com/yyhhenry/friendly-curves"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-foreground"
+            className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground"
           >
-            开源项目
+            <Github className="size-3" /> GitHub
           </a>
         </p>
       </footer>
