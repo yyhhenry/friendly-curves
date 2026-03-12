@@ -24,8 +24,8 @@ import {
   Send,
   Inbox,
   Info,
-  Github,
   Trash2,
+  KeyRoundIcon,
 } from "lucide-react"
 import {
   generateKeyPair,
@@ -461,8 +461,8 @@ export default function App() {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6">
       <div className="mb-6 space-y-3">
-        <h1 className="text-2xl font-bold tracking-tight">
-          🔐 Friendly Curves
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+          <KeyRoundIcon /> 非对称加密（老妈都看得懂）
         </h1>
         <p className="text-sm text-muted-foreground">
           在浏览器中加密不方便明文传输的简短内容，无需注册，无需安装。
@@ -504,7 +504,7 @@ export default function App() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground"
           >
-            <Github className="size-3" /> GitHub
+            GitHub
           </a>
         </p>
       </footer>
