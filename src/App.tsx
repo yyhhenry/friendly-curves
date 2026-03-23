@@ -128,36 +128,44 @@ function SendTab() {
         </CardContent>
       </Card>
 
-      {isPubKeyValid() && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Badge>第二步</Badge> 输入要加密的内容
-            </CardTitle>
-            <CardDescription>
-              写下你想要加密发送的消息，只有持有对应私钥的人才能解密
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Textarea
-              placeholder="在此输入要加密的内容..."
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value)
-                setCiphertext("")
-              }}
-              rows={4}
-            />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Badge>第二步</Badge> 输入要加密的内容
+          </CardTitle>
+          <CardDescription>
+            写下你想要加密发送的消息，只有持有对应私钥的人才能解密
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Textarea
+            placeholder="在此输入要加密的内容..."
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value)
+              setCiphertext("")
+            }}
+            rows={4}
+          />
+          <div className="flex items-center gap-3">
             <Button
               onClick={handleEncrypt}
-              disabled={!message.trim() || encrypting}
+              disabled={!isPubKeyValid() || !message.trim() || encrypting}
             >
               <Lock className="size-4" /> {encrypting ? "加密中..." : "加密"}
             </Button>
-            {error && <p className="text-xs text-destructive">{error}</p>}
-          </CardContent>
-        </Card>
-      )}
+            {!isPubKeyValid() && (
+              <p className="text-xs text-muted-foreground">请输入公钥</p>
+            )}
+            {isPubKeyValid() && !message.trim() && (
+              <p className="text-xs text-muted-foreground">
+                请输入要加密的内容
+              </p>
+            )}
+          </div>
+          {error && <p className="text-xs text-destructive">{error}</p>}
+        </CardContent>
+      </Card>
 
       {ciphertext && (
         <Card>
