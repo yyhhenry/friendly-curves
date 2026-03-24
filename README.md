@@ -7,7 +7,7 @@
 To add components to your app, run the following command:
 
 ```bash
-pnpm dlx shadcn@latest add button
+bunx --bun shadcn@latest add button
 ```
 
 To use the components in your app, import them as follows:
@@ -26,4 +26,18 @@ Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Rad
   ],
   "editor.tabSize": 2
 }
+```
+
+Add this to your `~/.bunfig.toml` for better experience, especially on Windows:
+
+```toml
+[install]
+linker = "isolated"
+```
+
+Set the following environment variables in your CloudFlare Pages project with build command `bun install && bun run build`:
+
+```
+BUN_VERSION=1.3.11
+SKIP_DEPENDENCY_INSTALL=1
 ```

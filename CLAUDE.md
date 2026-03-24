@@ -8,12 +8,12 @@ Browser-based asymmetric encryption tool ("非对称加密，老妈都看得懂"
 
 ## Commands
 
-- `pnpm dev` — start Vite dev server with HMR
-- `pnpm build` — type-check (`tsc -b`) then production build to `dist/`
-- `pnpm lint` — ESLint
-- `pnpm format` — Prettier (no semicolons, double quotes, LF line endings, Tailwind class sorting)
-- `pnpm typecheck` — type-check only (`tsc --noEmit`)
-- `pnpm preview` — serve production build locally
+- `bun run dev` — start Vite dev server with HMR
+- `bun run build` — type-check (`tsc -b`) then production build to `dist/`
+- `bun run lint` — ESLint
+- `bun run format` — Prettier (no semicolons, double quotes, LF line endings, Tailwind class sorting)
+- `bun run typecheck` — type-check only (`tsc --noEmit`)
+- `bun run preview` — serve production build locally
 
 No test framework is configured.
 
@@ -35,4 +35,4 @@ Private key persisted to `localStorage` under `"friendly-curves-private-key"`.
 
 - Prettier enforced: no semicolons, double quotes, 2-space indent, `es5` trailing commas, `lf` line endings.
 - `@/` path alias maps to `src/` (configured in both `vite.config.ts` and `tsconfig.json`).
-- shadcn/ui components added via `npx shadcn@latest add <component>`.
+- shadcn/ui components added via `bunx --bun shadcn@latest add <component>`.
