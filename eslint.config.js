@@ -20,4 +20,12 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  // shadcn/ui components are auto-generated and won't be modified during HMR,
+  // so it's safe to ignore react-refresh/only-export-components for them.
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])
