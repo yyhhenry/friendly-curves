@@ -27,3 +27,10 @@ Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Rad
   "editor.tabSize": 2
 }
 ```
+
+Add this to your `~/.bunfig.toml` for better experience, especially on Windows:
+
+```toml
+[install]
+linker = "isolated"
+```
