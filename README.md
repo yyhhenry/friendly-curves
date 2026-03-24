@@ -7,7 +7,7 @@
 To add components to your app, run the following command:
 
 ```bash
-pnpm dlx shadcn@latest add button
+bunx --bun shadcn@latest add button
 ```
 
 To use the components in your app, import them as follows:
