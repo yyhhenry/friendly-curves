@@ -35,4 +35,9 @@ Add this to your `~/.bunfig.toml` for better experience, especially on Windows:
 linker = "isolated"
 ```
 
-Use `bun install && bun run build` as build command on CloudFlare Pages, and set environment variable `BUN_VERSION=1.3.11` and `SKIP_DEPENDENCY_INSTALL=1` to ensure the correct version of Bun is used for building the project.
+Set the following environment variables in your CloudFlare Pages project:
+
+```
+BUN_VERSION=1.3.11
+SKIP_DEPENDENCY_INSTALL=1
+```
