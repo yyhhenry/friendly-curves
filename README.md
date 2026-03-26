@@ -28,13 +28,6 @@ Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Rad
 }
 ```
 
-Add this to your `~/.bunfig.toml` for better experience, especially on Windows:
-
-```toml
-[install]
-linker = "isolated"
-```
-
 Set the following environment variables in your CloudFlare Pages project with build command `bun install && bun run build`:
 
 ```
