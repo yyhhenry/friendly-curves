@@ -26,7 +26,11 @@ import {
   Info,
   Trash2,
   KeyRoundIcon,
+  Sun,
+  Moon,
+  Monitor,
 } from "lucide-react"
+import { useTheme } from "@/components/theme-provider"
 import {
   generateKeyPair,
   getPublicKeyFromPrivate,
@@ -467,12 +471,37 @@ function ReceiveTab() {
   )
 }
 
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme()
+  const next: Record<string, "dark" | "light" | "system"> = {
+    system: "light",
+    light: "dark",
+    dark: "system",
+  }
+  const Icon = theme === "system" ? Monitor : theme === "light" ? Sun : Moon
+  const label =
+    theme === "system" ? "跟随系统" : theme === "light" ? "浅色模式" : "深色模式"
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(next[theme])}
+      title={label}
+    >
+      <Icon className="size-4" />
+    </Button>
+  )
+}
+
 export default function App() {
   return (
     <div className="mx-auto max-w-2xl p-4 sm:p-6">
       <div className="mb-6 space-y-3">
-        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
-          <KeyRoundIcon /> 非对称加密（老妈都看得懂）
+        <h1 className="flex items-center justify-between text-2xl font-bold tracking-tight">
+          <span className="flex items-center gap-2">
+            <KeyRoundIcon /> 非对称加密（老妈都看得懂）
+          </span>
+          <ThemeToggle />
         </h1>
         <p className="text-sm text-muted-foreground">
           在浏览器中加密不方便明文传输的简短内容，无需注册，无需安装。
