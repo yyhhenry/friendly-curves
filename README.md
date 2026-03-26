@@ -28,9 +28,13 @@ Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Rad
 }
 ```
 
-Set the following environment variables in your CloudFlare Pages project with build command `bun install && bun run build`:
+## Cloudflare Pages
 
-```
+Set the build command to `bun install && bun run build` and the publish directory to `dist`.
+
+Add the following environment variables:
+
+```bash
 BUN_VERSION=1.3.11
 SKIP_DEPENDENCY_INSTALL=1
 ```
