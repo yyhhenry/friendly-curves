@@ -12,7 +12,7 @@ Browser-based asymmetric encryption tool ("非对称加密，老妈都看得懂"
 - `bun run build` — type-check (`tsc -b`) then production build to `dist/`
 - `bun run lint` — ESLint
 - `bun run format` — Prettier (no semicolons, double quotes, LF line endings, Tailwind class sorting)
-- `bun run typecheck` — type-check only (`tsc --noEmit`)
+- `bun run type-check` — type-check only (`tsc --noEmit`)
 - `bun run preview` — serve production build locally
 
 No test framework is configured.
