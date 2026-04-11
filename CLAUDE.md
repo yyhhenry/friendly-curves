@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Browser-based asymmetric encryption tool ("非对称加密，老妈都看得懂"). Encrypts/decrypts short text using Curve25519 + AES-256-GCM entirely in-browser — no backend, no accounts, no installation.
+Browser-based asymmetric encryption tool ("非对称加密小工具"). Encrypts/decrypts short text using Curve25519 + AES-256-GCM entirely in-browser — no backend, no accounts, no installation.
 
 ## Commands
 

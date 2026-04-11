@@ -480,7 +480,11 @@ function ThemeToggle() {
   }
   const Icon = theme === "system" ? Monitor : theme === "light" ? Sun : Moon
   const label =
-    theme === "system" ? "跟随系统" : theme === "light" ? "浅色模式" : "深色模式"
+    theme === "system"
+      ? "跟随系统"
+      : theme === "light"
+        ? "浅色模式"
+        : "深色模式"
   return (
     <Button
       variant="ghost"
@@ -499,7 +503,7 @@ export default function App() {
       <div className="mb-6 space-y-3">
         <h1 className="flex items-center justify-between text-2xl font-bold tracking-tight">
           <span className="flex items-center gap-2">
-            <KeyRoundIcon /> 非对称加密（老妈都看得懂）
+            <KeyRoundIcon /> 非对称加密小工具
           </span>
           <ThemeToggle />
         </h1>
