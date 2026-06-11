@@ -460,10 +460,11 @@ function ReceiveTab() {
               <Badge variant="outline">🎉 解密成功</Badge>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-3">
             <div className="rounded-md bg-muted p-4 whitespace-pre-wrap">
               {plaintext}
             </div>
+            <CopyButton text={plaintext} label="复制解密内容" />
           </CardContent>
         </Card>
       )}
