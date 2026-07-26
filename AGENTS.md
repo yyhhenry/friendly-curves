@@ -1,18 +1,14 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
+# AGENTS.md
 
 Browser-based asymmetric encryption tool ("非对称加密小工具"). Encrypts/decrypts short text using Curve25519 + AES-256-GCM entirely in-browser — no backend, no accounts, no installation.
 
 ## Commands
 
 - `bun run dev` — start Vite dev server with HMR
-- `bun run build` — type-check (`tsc -b`) then production build to `dist/`
+- `bun run build` — typecheck (`tsc -b`) then production build to `dist/`
 - `bun run lint` — ESLint
 - `bun run format` — Prettier (no semicolons, double quotes, LF line endings, Tailwind class sorting)
-- `bun run type-check` — type-check only (`tsc --noEmit`)
+- `bun run typecheck` — typecheck only (`tsc --noEmit`)
 - `bun run preview` — serve production build locally
 
 No test framework is configured.

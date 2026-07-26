@@ -16,25 +16,6 @@ To use the components in your app, import them as follows:
 import { Button } from "@/components/ui/button"
 ```
 
-Add this to `.vscode/settings.json` to auto-import from ShadCN UI instead of Radix UI:
-
-```json
-{
-  "js/ts.preferences.autoImportFileExcludePatterns": [
-    "**/node_modules/radix-ui/**",
-    "**/node_modules/@base-ui/**"
-  ],
-  "editor.tabSize": 2
-}
-```
-
 ## Cloudflare Pages
 
-Set the build command to `bun install && bun run build` and the publish directory to `dist`.
-
-Add the following environment variables:
-
-```bash
-BUN_VERSION=1.3.11
-SKIP_DEPENDENCY_INSTALL=1
-```
+Set the build command to `bun install && bun run build` and the publish directory to `dist`. Environment variables (`BUN_VERSION`, `SKIP_DEPENDENCY_INSTALL`) are configured in `wrangler.toml`.

@@ -1,0 +1,9 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
+name = "friendly-curves"
+compatibility_date = "2026-07-25"
+pages_build_output_dir = "./dist"
+# Set build command for Pages on Dashboard: bun install && bun run build
+
+[vars]
+BUN_VERSION = "1.3.14"
+SKIP_DEPENDENCY_INSTALL = "1"
